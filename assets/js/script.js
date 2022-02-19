@@ -1,12 +1,12 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
+let generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  // var password = generatePassword();
-  // var passwordText = document.querySelector("#password");
+  let password = generatePassword();
+  let passwordText = document.querySelector("#password");
 
-  // passwordText.value = password;
+  passwordText.value = password.join("");
 }
 
 // define character arrays
@@ -30,7 +30,7 @@ let getPasswordOptions = function() {
   let confirmLowercase = window.confirm("Select 'OK' to confirm including lowercase characters in your password.");
 
   // confirm selection of uppercase characters
-  let confirmUppercase = window.confirm("Select 'OK to confirm including uppercase charaacters in your password.");
+  let confirmUppercase = window.confirm("Select 'OK to confirm including uppercase characters in your password.");
 
   // confirm selection of numeric characters
   let confirmNumeric = window.confirm("Select 'OK' to confirm including numeric characters in your password.");
@@ -56,7 +56,7 @@ let getPasswordOptions = function() {
 }
 
 //function to return a random character
-let getRandomCharacter = function(array) {
+let getRandomChar = function(array) {
   let randomIndex = Math.floor(Math.random() * array.length);
   let randomCharacter = array[randomIndex];
   return randomCharacter;
@@ -67,12 +67,35 @@ let generatePassword = function() {
   let passwordOptions = getPasswordOptions();
   let password = [];
 
-  // include arrays from user criteria only
+  // set an array to include chosen character arrays
+  let chosenArrays = [];
+  // include arrays from user criteria only and ensure that each character type chosen is included
+  if (passwordOptions.confirmLowercase) {
+    chosenArrays[0] = lowercaseCharacters;
+  }
 
-  // ensure that each character type chose in criteria is used
+  if (passwordOptions.confirmUppercase) {
+    chosenArrays[chosenArrays.length] = uppercaseCharacters;
+  }
 
-  // choose a random characters until password length is reached
-  for (let i = 0; i <= passwordOptions.passwordLength; i++) {
+  if (passwordOptions.confirmNumeric) {
+    chosenArrays[chosenArrays.length] = numericCharacters;
+  }
+
+  if (passwordOptions.confirmSpecial) {
+    chosenArrays[chosenArrays.length] = specialCharacters;
+  }
+
+  // choose a random characters from each chosen character type
+  for (let i = 0; i < chosenArrays.length; i++) {
+    let pickedChar = getRandomChar(chosenArrays[i]);
+    password[i] = pickedChar;
+  }
+
+  // choose remanining characters at random until password length is reached
+  for (let i = password.length; i < passwordOptions.passwordLength; i++) {
+    let pickedChar = getRandomChar(chosenArrays[Math.floor(Math.random() * chosenArrays.length)]);
+    password[i] = pickedChar;
   }
   return password;
 }
