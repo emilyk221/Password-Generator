@@ -8,6 +8,8 @@ Being able to generate a random password based on specific criteria makes it eas
 
 ### Screenshots
 
+![Password Generator Webpage with example password](assets/images/Screenshot.png)
+
 ## Website
 
 [https://emilyk221.github.io/Password-Generator](https://emilyk221.github.io/Password-Generator).
