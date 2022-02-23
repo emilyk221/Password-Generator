@@ -116,6 +116,7 @@ let generatePassword = function(options) {
     hasSpecial = true;
   }
 
+  // MY FIRST ATTEMPT TO CREATE A RANDOM PASSWORD THAT IS SURE TO INCLUDE ALL THE CHOSEN CHARACTER TYPES
   // // choose random characters from each chosen character type
   // for (let i = 0; i < chosenArrays.length; i++) {
   //   let pickedChar = getRandomChar(chosenArrays[i]);
@@ -127,7 +128,7 @@ let generatePassword = function(options) {
   //   let pickedChar = getRandomChar(chosenArrays[Math.floor(Math.random() * chosenArrays.length)]);
   //   password[i] = pickedChar;
   // }
-  debugger;
+
   // MY ATTEMPT AT AVOIDING PREDICTABILITY OF FIRST 1-4 CHARACTERS FROM LOOPING THRU ARRAY OF CHOSEN TYPES ONCE BEFORE ADDING RANDOM ARRAY CHOICE
   // choose random characters until password length is reached
   for (let i = 0; i < passwordOptions.passwordLength; i++) {
@@ -149,13 +150,15 @@ let generatePassword = function(options) {
     }
   }
 
+  // // manual check to see if password generated meets criteria
+  // console.log(password);
+
   // if not all chosen character types are included then generate a new password
   if (!hasLower || !hasUpper || !hasNumber || !hasSpecial) {
-    password = [];
-    generatePassword(passwordOptions);
+    return generatePassword(passwordOptions);
+  } else {
+    return password;
   }
-
-  return password;
 }
 
 // Add event listener to generate button
