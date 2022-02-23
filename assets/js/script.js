@@ -31,7 +31,7 @@ let getPasswordOptions = function() {
   // validate length of password is between 8 and 128 characters
   if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     window.alert("You must pick a number between 8 and 128. Please try again.");
-    return null;
+    return getPasswordOptions();
   }
 
   // confirm selection of lowercase characters
@@ -49,7 +49,7 @@ let getPasswordOptions = function() {
   // make sure that at least one type of character was chosen
   if (!confirmLowercase && !confirmUppercase && !confirmNumeric && !confirmSpecial) {
     window.alert("You must use at least one character type in your password. Please try again.");
-    return null;
+    return getPasswordOptions();
   }
   // define password criteria
   let passwordOptions = {
@@ -129,7 +129,7 @@ let generatePassword = function(options) {
   //   password[i] = pickedChar;
   // }
 
-  // MY ATTEMPT AT AVOIDING PREDICTABILITY OF FIRST 1-4 CHARACTERS FROM LOOPING THRU ARRAY OF CHOSEN TYPES ONCE BEFORE ADDING RANDOM ARRAY CHOICE
+  // MY ATTEMPT AT AVOIDING PREDICTABILITY OF FIRST 2-4 CHARACTERS FROM CODE ABOVE (LOOPS THRU ARRAY OF CHOSEN TYPES ONCE BEFORE ADDS RANDOM ARRAY CHOICE)
   // choose random characters until password length is reached
   for (let i = 0; i < passwordOptions.passwordLength; i++) {
     let pickedChar = getRandomChar(chosenArrays[Math.floor(Math.random() * chosenArrays.length)]);
@@ -153,7 +153,7 @@ let generatePassword = function(options) {
   // // manual check to see if password generated meets criteria
   // console.log(password);
 
-  // if not all chosen character types are included then generate a new password
+  // if not all chosen character types are included then generate a new password, otherwise return password
   if (!hasLower || !hasUpper || !hasNumber || !hasSpecial) {
     return generatePassword(passwordOptions);
   } else {
